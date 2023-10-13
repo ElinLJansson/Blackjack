@@ -1,10 +1,7 @@
 ﻿
-using Blackjack.Common.Enums;
-using Blackjack.Common.Records;
+namespace BlackJack.Classes;
 
-namespace Blackjack.Common.Classes;
-
-abstract class PlayerBase
+public abstract class PlayerBase
 {
     public bool Stays { get; set; }
     public List<Card> Cards { get; private set; } = new();
@@ -14,7 +11,7 @@ abstract class PlayerBase
     {
         Cards.AddRange(cards);
         CalculateScore();
-        if (Score > 21) Result = Results.DealerLost;
+        RuleEngine.StaysAndBustHandRules.Evaulate(this);
     }
     public void CalculateScore()
     {
@@ -29,5 +26,5 @@ abstract class PlayerBase
             }
         }
     }
-    protected void ChangeResult(Results results) => Result = results;
+    public void ChangeResult(Results results) => Result = results;
 }

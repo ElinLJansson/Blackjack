@@ -1,10 +1,11 @@
 ﻿
-namespace Blackjack.Common.Enums;
+namespace BlackJack.Enums;
 
 public enum Results
 {
     Unknown,
     Blackjack,
-    PlayerLost,
-    DealerLost
+    Bust,
+    PlayerLost, // Raderas
+    DealerLost  // Raderas
 }

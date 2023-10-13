@@ -1,5 +1,5 @@
 ﻿
-namespace Blackjack.Common.Records;
+namespace BlackJack.Records;
 
 public record class Card
 {

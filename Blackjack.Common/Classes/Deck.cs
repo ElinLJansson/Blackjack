@@ -1,6 +1,5 @@
-﻿using Blackjack.Common.Records;
-
-namespace Blackjack.Common.Classes;
+﻿
+namespace BlackJack.Classes;
 
 public class Deck
 {

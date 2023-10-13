@@ -1,8 +1,5 @@
 ﻿
-using Blackjack.Common.Enums;
-using Blackjack.Common.Records;
-
-namespace Blackjack.Common.Classes;
+namespace BlackJack.Classes;
 
 public class Blackjack
 {
@@ -35,8 +32,7 @@ public class Blackjack
         player.Stays = true;
         dealer.Stays = true;
 
-        if (!player.Result.Equals(Results.Blackjack) &&
-            !player.Result.Equals(Results.PlayerLost))
+        if (!RuleEngine.BlackjackAndBustHandRules.Evaulate(player))
         {
             dealer.Cards.First().IsHidden = false;
             dealer.CalculateScore();
@@ -50,7 +46,7 @@ public class Blackjack
     }
     void DetermineWinner()
     {
-        if (player.Result.Equals(Results.Blackjack) || player.Result.Equals(Results.PlayerLost))
+        if (RuleEngine.BlackjackAndBustHandRules.Evaulate(player))
         {
             dealer.Cards.First().IsHidden = true;
             dealer.Score = dealer.Cards[1].Value;
@@ -60,11 +56,11 @@ public class Blackjack
         {
             Winner = "Player wins with Blackjack";
         }
-        else if (player.Result.Equals(Results.PlayerLost))
+        else if (player.Result.Equals(Results.Bust))
         {
             Winner = "Dealer wins";
         }
-        else if (dealer.Result.Equals(Results.DealerLost))
+        else if (dealer.Result.Equals(Results.Bust))
         {
             Winner = "Player wins";
         }
