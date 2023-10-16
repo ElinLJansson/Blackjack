@@ -41,8 +41,7 @@ public class Blackjack
                 DealDealerCard();
             }
         }
-
-        DetermineWinner();
+        Winner = RuleEngine.DetermineWinnerRules.Evaluate(player, dealer);
     }
     void DetermineWinner()
     {
