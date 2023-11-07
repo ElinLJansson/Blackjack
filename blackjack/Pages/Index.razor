@@ -5,19 +5,21 @@
 <h1>Blackjack</h1>
 
 @* Dealer *@
-<div class="text-danger display-3">Dealer</div>
+<span class="text-black display-3">Dealer: </span>
 @foreach (var card in game.GetDealerCards())
 {
-    <span class="text-black display-1">@card.Symbol</span>
+    @* <span class="text-black display-1">@card.Symbol</span> *@
+    <DisplayCards DisplayCard="card" />
     //Color all red cards
 }
-<span class="text-danger display-3">&nbsp;@game.GetDealerScore()</span>
-
+<span class="text-black display-3">&nbsp;@game.GetDealerScore()</span>
+<br />
 @* Player *@
-<div class="text-success display-3">Player</div>
+<span class="text-success display-3">Player: </span>
 @foreach (var card in game.GetPlayerCards())
 {
-    <span class="text-black display-1">@card.Symbol</span>
+    @* <span class="text-black display-1">@card.Symbol</span> *@
+    <DisplayCards DisplayCard="card" />
     //Color all red cards
 }
 <span class="text-success display-3">&nbsp;@game.GetPlayerScore()</span>
@@ -35,13 +37,38 @@
     }
 </div>
 <br />
-<div class="text-primary display-1">
-    @game.Winner
+<button class="btn btn-warning" @onclick="board.ClearScoreboard">Clear Scoreboard</button>
+<div class="w-50">
+    <table class="table display-6">
+        <thead>
+            <tr>
+                <th class="fw-bold">Player</th>
+                <th class="fw-bold">Dealer</th>
+                <th class="fw-bold">Winner</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var score in board.Scores)
+            {
+                <tr>
+                    <td>@score.GetPlayerCards() @score.PlayerScore</td>
+                    <td>@score.GetDealerCards() @score.DealerScore</td>
+                    <td>@score.Winner</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+
 
 
 @code{
     Blackjack game = new();
+    Scoreboard board = new();
 
-    protected override void OnInitialized() => game.NewGame();
+    protected override void OnInitialized()
+    {
+        game.NewGame();
+        game.Subscribe(board.AddScore);
+    }
 }

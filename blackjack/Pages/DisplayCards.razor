@@ -1,0 +1,19 @@
+﻿@using BlackJack.Classes;
+@using BlackJack.Records;
+@if (redCards.Contains(DisplayCard.Symbol) && DisplayCard is not null)
+{
+    <span class="text-danger display-1">@DisplayCard.Symbol</span>
+}
+else
+{
+    <span class="text-black display-1">@DisplayCard.Symbol</span>
+}
+
+@code {
+
+    List<string> redCards = new() { "🂱", "🂲", "🂳", "🂴", "🂵", "🂶", "🂷", "🂸", "🂹", "🂺", "🂻", "🂽", "🂾", 
+                                    "🃁", "🃂", "🃃", "🃄", "🃅", "🃆", "🃇", "🃈", "🃉", "🃊", "🃋", "🃍", "🃎" };
+    [Parameter]
+    public Card DisplayCard { get; set; }
+
+}

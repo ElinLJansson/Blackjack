@@ -3,12 +3,12 @@ namespace BlackJack.Classes;
 
 public class Player : PlayerBase
 {
-    Blackjack Game { set; get; }
-    public Player(Blackjack game) => Game = game;
+    Action Stay {  get; init; }
+    public Player(Action stay) => Stay = stay;
     public override void AddCard(List<Card> cards)
     {
         Cards.AddRange(cards);
         CalculateScore();
-        if (RuleEngine.BlackjackAndBustHandRules.Evaulate(this)) Game.Stay();
+        if (RuleEngine.BlackjackAndBustHandRules.Evaulate(this) && Stay is not null) Stay();
     }
 }

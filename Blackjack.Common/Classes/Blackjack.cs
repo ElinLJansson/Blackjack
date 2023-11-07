@@ -1,4 +1,6 @@
 ﻿
+using Blackjack.Records;
+
 namespace BlackJack.Classes;
 
 public class Blackjack
@@ -6,11 +8,12 @@ public class Blackjack
     private Player player;
     private Dealer dealer;
     private Deck deck = new();
+    private EventHandler<Score>? PublishScore;
     public bool Stays { get => player.Stays; }
     public string Winner { get; private set; } = string.Empty;
     public Blackjack()
     {
-        player = new(this);
+        player = new(Stay);
         dealer = new();
     }
     public List<Card> GetPlayerCards() => player.Cards;
@@ -42,47 +45,29 @@ public class Blackjack
             }
         }
         Winner = RuleEngine.DetermineWinnerRules.Evaluate(player, dealer);
-    }
-    void DetermineWinner()
-    {
-        if (RuleEngine.BlackjackAndBustHandRules.Evaulate(player))
-        {
-            dealer.Cards.First().IsHidden = true;
-            dealer.Score = dealer.Cards[1].Value;
-        }
-
-        if (player.Result.Equals(Results.Blackjack))
-        {
-            Winner = "Player wins with Blackjack";
-        }
-        else if (player.Result.Equals(Results.Bust))
-        {
-            Winner = "Dealer wins";
-        }
-        else if (dealer.Result.Equals(Results.Bust))
-        {
-            Winner = "Player wins";
-        }
-        else if (dealer.Score > player.Score)
-        {
-            Winner = "Dealer wins";
-        }
-        else if (player.Score > dealer.Score)
-        {
-            Winner = "Player wins";
-        }
-        else
-            Winner = "Draw";
+        Publish();
     }
     public void NewGame()
     {
         Winner = string.Empty;
         deck.NewDeck();
 
-        player = new(this);
+        player = new(Stay);
         dealer = new();
 
         DealDealerCard(2, true);
         DealPlayerCard(2);
+    }
+    public void Subscribe(EventHandler<Score> subscriptionMethod) =>
+        PublishScore += subscriptionMethod;
+    public void Unsubscribe(EventHandler<Score> subscriptionMethod) =>
+        PublishScore -= subscriptionMethod;
+    private void Publish()
+    {
+        if (PublishScore is not null) 
+        {
+            Score score = new(player.Cards, dealer.Cards, player.Score, dealer.Score, Winner);
+            PublishScore(this, score);
+        }
     }
 }
