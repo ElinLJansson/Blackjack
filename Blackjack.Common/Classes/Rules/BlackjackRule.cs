@@ -13,6 +13,4 @@ public class BlackjackRule : IHandRule, IOutcomeRule
     public (bool Satisfied, string Message) Evaluate(Player player, Dealer? dealer)
         => IOutcomeRule.Evaluate(player, dealer, Results.Blackjack) ? (true, "Player wins with Blackjack") : (false, "");
     
-        
-    
 }

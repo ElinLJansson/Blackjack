@@ -70,4 +70,5 @@ public class Blackjack
             PublishScore(this, score);
         }
     }
+
 }

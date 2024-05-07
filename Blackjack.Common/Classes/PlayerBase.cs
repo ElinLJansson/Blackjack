@@ -27,4 +27,5 @@ public abstract class PlayerBase
         }
     }
     public void ChangeResult(Results results) => Result = results;
+
 }

@@ -17,4 +17,5 @@ public record class Card
         _value = value;
         IsHidden = isHidden;
     }
+
 }

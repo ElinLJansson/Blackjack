@@ -8,4 +8,5 @@ public class StayRule : IHandRule
         if (person is Dealer) person.Stays = person.Score > 16;
         return person.Stays;
     }
+
 }

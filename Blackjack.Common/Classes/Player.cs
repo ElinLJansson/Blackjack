@@ -11,4 +11,5 @@ public class Player : PlayerBase
         CalculateScore();
         if (RuleEngine.BlackjackAndBustHandRules.Evaulate(this) && Stay is not null) Stay();
     }
+
 }

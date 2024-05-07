@@ -9,4 +9,5 @@ public class BustRule : IHandRule
         if (isBust) person.ChangeResult(Results.Bust);
         return isBust;
     }
+
 }

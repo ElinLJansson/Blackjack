@@ -17,4 +17,5 @@ public interface IOutcomeRule
         }
         return false;
     }
+
 }

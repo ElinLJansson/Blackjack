@@ -17,4 +17,5 @@ public record Score
         string.Join(" ", PlayerCards.Select(c => c.Symbol));
     public string GetDealerCards() =>
         string.Join(" ", DealerCards.Select(c => c.Symbol));
+
 }
